@@ -22,22 +22,22 @@ class ProfileViewController: UIViewController {
 class EpisodesViewController: UITableViewController {
     let episodes = [Episode(title: "Episode One"), Episode(title: "Episode Two"), Episode(title: "Episode Three")]
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return episodes.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let episode = episodes[indexPath.row]
         cell.textLabel?.text = episode.title
         return cell
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? DetailViewController {
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let vc = segue.destination as? DetailViewController {
             vc.episode = episodes[tableView.indexPathForSelectedRow!.row]
-        } else if let nc = segue.destinationViewController as? UINavigationController,
-            pvc = nc.viewControllers.first as? ProfileViewController {
+		} else if let nc = segue.destination as? UINavigationController,
+			let pvc = nc.viewControllers.first as? ProfileViewController {
             pvc.person = "My Name"
         } else {
             fatalError("unknown segue")
@@ -63,7 +63,7 @@ class DetailViewController: UIViewController {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         return true
     }
 }
