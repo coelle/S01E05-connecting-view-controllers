@@ -21,30 +21,16 @@ class ProfileViewController: UIViewController {
 
 class EpisodesViewController: UITableViewController {
     let episodes = [Episode(title: "Episode One"), Episode(title: "Episode Two"), Episode(title: "Episode Three")]
-    
+
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return episodes.count
     }
-    
+
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let episode = episodes[indexPath.row]
         cell.textLabel?.text = episode.title
         return cell
-    }
-
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let vc = segue.destination as? DetailViewController {
-            vc.episode = episodes[tableView.indexPathForSelectedRow!.row]
-		} else if let nc = segue.destination as? UINavigationController,
-			let pvc = nc.viewControllers.first as? ProfileViewController {
-            pvc.person = "My Name"
-        } else {
-            fatalError("unknown segue")
-        }
-    }
-    
-    @IBAction func unwindToHere(segue: UIStoryboardSegue) {
     }
 }
 
