@@ -72,9 +72,7 @@ final class App {
 		self.nc = window.rootViewController as! UINavigationController
 		let episodesVC = nc.viewControllers.first as! EpisodesViewController
 
-		episodesVC.didSelect = { episode in
-			self.showEpisode(episode)
-		}
+		episodesVC.didSelect = showEpisode
 
 		episodesVC.didTapOpenProfile = {
 			let profileNC = self.storyboard.instantiateViewController(withIdentifier: "Profile") as! UINavigationController
