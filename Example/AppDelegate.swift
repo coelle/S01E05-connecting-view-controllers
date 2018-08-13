@@ -63,15 +63,11 @@ class DetailViewController: UIViewController {
 	var episode: Episode?
 }
 
-
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-	var window: UIWindow?
-
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+final class App {
+	init(window: UIWindow) {
 		let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-		let nc = window?.rootViewController as! UINavigationController
+		let nc = window.rootViewController as! UINavigationController
 		let episodesVC = nc.viewControllers.first as! EpisodesViewController
 
 		episodesVC.didSelect = { episode in
@@ -86,6 +82,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				nc.dismiss(animated: true, completion: nil)
 			}
 			nc.present(profileNC, animated: true, completion: nil)
+		}
+	}
+}
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+	var window: UIWindow?
+	var app: App?
+
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+		if let window = window {
+			app = App(window: window)
 		}
 		return true
 	}
