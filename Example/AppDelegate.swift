@@ -64,25 +64,32 @@ class DetailViewController: UIViewController {
 }
 
 final class App {
-	init(window: UIWindow) {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+	let storyboard: UIStoryboard
+	let nc: UINavigationController
 
-		let nc = window.rootViewController as! UINavigationController
+	init(window: UIWindow) {
+		self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+		self.nc = window.rootViewController as! UINavigationController
 		let episodesVC = nc.viewControllers.first as! EpisodesViewController
 
 		episodesVC.didSelect = { episode in
-			let detailVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
-			detailVC.episode = episode
-			nc.pushViewController(detailVC, animated: true)
+			self.didSelectEpisode(episode)
 		}
+
 		episodesVC.didTapOpenProfile = {
-			let profileNC = storyboard.instantiateViewController(withIdentifier: "Profile") as! UINavigationController
+			let profileNC = self.storyboard.instantiateViewController(withIdentifier: "Profile") as! UINavigationController
 			let profileVC = profileNC.viewControllers.first as! ProfileViewController
 			profileVC.didTapClose = {
-				nc.dismiss(animated: true, completion: nil)
+				self.nc.dismiss(animated: true, completion: nil)
 			}
-			nc.present(profileNC, animated: true, completion: nil)
+			self.nc.present(profileNC, animated: true, completion: nil)
 		}
+	}
+
+	private func didSelectEpisode(_ episode: Episode) {
+		let detailVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
+		detailVC.episode = episode
+		nc.pushViewController(detailVC, animated: true)
 	}
 }
 
