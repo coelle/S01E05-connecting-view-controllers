@@ -14,13 +14,22 @@ struct Episode {
 
 class ProfileViewController: UIViewController {
 	var person: String = ""
+	var didTapClose: () -> () = {
+	}
+
+	@IBAction func close(sender: Any) {
+		didTapClose()
+	}
 }
 
 
 class EpisodesViewController: UITableViewController {
 	let episodes = [Episode(title: "Episode One"), Episode(title: "Episode Two"), Episode(title: "Episode Three")]
-	var didSelect: (Episode) -> () = {
-		_ in
+
+	var didSelect: (Episode) -> () = { _ in
+	}
+
+	var didTapOpenProfile: () -> () = {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,6 +46,10 @@ class EpisodesViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let episode = episodes[indexPath.row]
 		didSelect(episode)
+	}
+
+	@IBAction func showProfile(sender: Any) {
+		didTapOpenProfile()
 	}
 }
 
@@ -65,6 +78,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let detailVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
 			detailVC.episode = episode
 			nc.pushViewController(detailVC, animated: true)
+		}
+		episodesVC.didTapOpenProfile = {
+			let profileNC = storyboard.instantiateViewController(withIdentifier: "Profile") as! UINavigationController
+			let profileVC = profileNC.viewControllers.first as! ProfileViewController
+			profileVC.didTapClose = {
+				nc.dismiss(animated: true, completion: nil)
+			}
+			nc.present(profileNC, animated: true, completion: nil)
 		}
 		return true
 	}

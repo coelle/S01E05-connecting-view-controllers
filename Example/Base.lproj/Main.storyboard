@@ -51,7 +51,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="t0f-rV-MKf">
-                        <barButtonItem key="rightBarButtonItem" title="My Profile" id="1fQ-sq-EWj"/>
+                        <barButtonItem key="rightBarButtonItem" title="My Profile" id="1fQ-sq-EWj">
+                            <connections>
+                                <action selector="showProfileWithSender:" destination="4fr-JY-kot" id="9m2-pm-hAJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bp1-jQ-far" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -84,7 +88,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Profile" id="bmD-M8-J7t">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ho9-tt-KF6"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ho9-tt-KF6">
+                            <connections>
+                                <action selector="closeWithSender:" destination="JOj-Di-gGA" id="jBV-wL-OGd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d18-1Z-PdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
