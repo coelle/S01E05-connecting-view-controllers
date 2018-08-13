@@ -73,21 +73,22 @@ final class App {
 		let episodesVC = nc.viewControllers.first as! EpisodesViewController
 
 		episodesVC.didSelect = showEpisode
-
-		episodesVC.didTapOpenProfile = {
-			let profileNC = self.storyboard.instantiateViewController(withIdentifier: "Profile") as! UINavigationController
-			let profileVC = profileNC.viewControllers.first as! ProfileViewController
-			profileVC.didTapClose = {
-				self.nc.dismiss(animated: true, completion: nil)
-			}
-			self.nc.present(profileNC, animated: true, completion: nil)
-		}
+		episodesVC.didTapOpenProfile = showProfile
 	}
 
 	private func showEpisode(_ episode: Episode) {
 		let detailVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
 		detailVC.episode = episode
 		nc.pushViewController(detailVC, animated: true)
+	}
+
+	private func showProfile() {
+		let profileNC = self.storyboard.instantiateViewController(withIdentifier: "Profile") as! UINavigationController
+		let profileVC = profileNC.viewControllers.first as! ProfileViewController
+		profileVC.didTapClose = {
+			self.nc.dismiss(animated: true, completion: nil)
+		}
+		self.nc.present(profileNC, animated: true, completion: nil)
 	}
 }
 
