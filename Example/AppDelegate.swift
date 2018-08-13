@@ -73,7 +73,7 @@ final class App {
 		let episodesVC = nc.viewControllers.first as! EpisodesViewController
 
 		episodesVC.didSelect = { episode in
-			self.didSelectEpisode(episode)
+			self.showEpisode(episode)
 		}
 
 		episodesVC.didTapOpenProfile = {
@@ -86,7 +86,7 @@ final class App {
 		}
 	}
 
-	private func didSelectEpisode(_ episode: Episode) {
+	private func showEpisode(_ episode: Episode) {
 		let detailVC = storyboard.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
 		detailVC.episode = episode
 		nc.pushViewController(detailVC, animated: true)
